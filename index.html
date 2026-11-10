@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <meta name="theme-color" content="#07100f" />
+  <link rel="icon" href="data:," />
+  <title>UMBRA — Operación fantasma</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="Umbra"><span class="brand-mark">U</span><span>UMBRA<span class="brand-dot">.</span></span></a>
+      <div class="top-meta"><span class="live-dot"></span> OPERACIÓN EN CURSO <span class="divider">/</span> <span id="clock">00:00</span></div>
+      <button class="icon-btn" id="soundBtn" aria-label="Alternar sonido">♫ <span>SONIDO</span></button>
+    </header>
+    <section class="game-layout">
+      <aside class="left-rail">
+        <div class="rail-label">DOSSIER <span>01—03</span></div>
+        <nav class="missions" id="missionList"></nav>
+        <div class="brief-card">
+          <div class="eyebrow">OBJETIVO PRINCIPAL</div>
+          <h2 id="briefTitle">La bóveda</h2>
+          <p id="briefDesc">Infiltra el complejo. Recupera el archivo y llega al punto de extracción.</p>
+          <div class="objective-list" id="objectiveList"></div>
+        </div>
+        <div class="intel-note"><span class="note-icon">⌁</span><div><b>INTEL DE CAMPO</b><p id="intelTip">Las sombras te ocultan. Corre solo si estás dispuesto a ser oído.</p></div></div>
+        <div class="rail-footer"><span>UMBRA DIVISION</span><span>BUILD 2.4.09</span></div>
+      </aside>
+
+      <section class="play-column">
+        <div class="game-head">
+          <div><div class="eyebrow">TEATRO DE OPERACIONES</div><h1 id="mapName">ARCHIVO <span>— SECTOR 07</span></h1></div>
+          <div class="status-pills"><span class="pill"><i class="status-dot"></i><span id="statusText">INVISIBLE</span></span><span class="pill coord" id="coordinates">GRID 04 / 12</span></div>
+        </div>
+        <div class="canvas-wrap" id="canvasWrap">
+          <canvas id="game" aria-label="Juego de infiltración, vista superior"></canvas>
+          <div class="canvas-topline"><span><i class="tiny-dot"></i> LIVE FEED</span><span id="mapBadge">NIGHT // 01</span></div>
+          <div class="alert-banner" id="alertBanner">⚠ SOSPECHA DETECTADA</div>
+          <div class="start-screen" id="startScreen">
+            <div class="start-inner"><div class="start-kicker"><span class="live-dot"></span> UMBRA FIELD SIMULATOR</div><div class="start-logo">NADIE<br><span>TE HA VISTO.</span></div><p>Una red. Tres instalaciones. Cero margen para improvisar.</p><button class="primary-btn" id="deployBtn">DESPLEGAR <span>↗</span></button><div class="start-hint">WASD PARA MOVER <span>·</span> RATÓN PARA APUNTAR</div></div>
+          </div>
+          <div class="toast" id="toast"></div>
+          <div class="touch-controls" id="touchControls"><div class="stick-zone" id="stickZone"><div class="stick" id="stick"></div></div><div class="touch-actions"><button data-action="interact">E<br><small>USAR</small></button><button data-action="gadget">Q<br><small>GADGET</small></button><button data-action="sneak">◒<br><small>SIGILO</small></button></div></div>
+        </div>
+        <div class="game-bottom"><div class="controls-hint"><span><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> MOVER</span><span><kbd>SHIFT</kbd> SIGILO</span><span><kbd>E</kbd> INTERACTUAR</span><span><kbd>Q</kbd> GADGET</span><span><kbd>SPACE</kbd> DERRIBO</span></div><button id="restartBtn" class="restart-btn">↻ <span>REINICIAR</span></button></div>
+      </section>
+
+      <aside class="right-rail">
+        <div class="panel-block operative"><div class="panel-title">AGENTE <span>U—09</span></div><div class="agent-card"><div class="agent-avatar"><span>◈</span><i></i></div><div><b>GHOST</b><small>INFILTRADOR</small></div><span class="rank">LV. 04</span></div><div class="meter-label"><span>INTEGRIDAD</span><b id="healthNum">100%</b></div><div class="meter"><i id="healthBar"></i></div><div class="meter-label second"><span>ALERTA GLOBAL</span><b id="alertNum">0%</b></div><div class="meter alert-meter"><i id="alertBar"></i></div></div>
+        <div class="panel-block loadout"><div class="panel-title">EQUIPAMIENTO <span>CAMBIAR 1—3</span></div><div id="weaponList" class="weapon-list"></div><div class="gadget-row"><div class="panel-title">HERRAMIENTAS <span>Q PARA USAR</span></div><div class="gadgets" id="gadgetList"></div></div></div>
+        <div class="panel-block intel-panel"><div class="panel-title">SEÑALES <span id="enemyCount">0 HOSTILES</span></div><div class="radar-wrap"><canvas id="radar" width="180" height="120"></canvas><span class="radar-scan"></span></div><div class="signal-legend"><span><i class="legend-player"></i> TÚ</span><span><i class="legend-hostile"></i> HOSTIL</span><span><i class="legend-camera"></i> SENSOR</span></div></div>
+        <div class="panel-block score-card"><div class="panel-title">RECOMPENSA <span>RUN TOTAL</span></div><div class="score"><span id="score">00000</span><small>PTS</small></div><div class="score-sub"><span id="stealthBonus">+ 0 SIGILO</span><span id="timeBonus">00:00</span></div></div>
+      </aside>
+    </section>
+    <footer class="page-footer"><span>SIMULACIÓN DE ENTRENAMIENTO · USO AUTORIZADO</span><span>NO DEJES RASTRO <b>◆</b></span></footer>
+  </main>
+  <script src="game.js"></script>
+</body>
+</html>
